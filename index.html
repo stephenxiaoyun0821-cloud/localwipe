@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Watermark Remover — 100% Local, No Upload | LocalWipe</title>
+  <meta name="description" content="Remove watermarks from photos without uploading them. 100% browser-based processing keeps your images private. Free, no sign-up required.">
+  <meta name="keywords" content="watermark remover no upload, local watermark remover, private watermark eraser, remove watermark from photo without uploading, browser-based watermark removal">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://localwipe.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Free Watermark Remover — 100% Local, No Upload">
+  <meta property="og:description" content="Remove watermarks from photos without uploading them. 100% browser-based, absolutely private.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://localwipe.com/">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B2EN1KV9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X4B2EN1KV9');
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            trust: '#2E7D32',
+            'trust-light': '#E8F5E9',
+            'trust-dark': '#1B5E20',
+            'pain-bg': '#FFF3F0',
+            'pain-text': '#C62828',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+    .comparison-container { position: relative; overflow: hidden; cursor: ew-resize; user-select: none; }
+    .comparison-container canvas { display: block; width: 100%; height: auto; }
+    .comparison-slider { position: absolute; top: 0; width: 3px; height: 100%; bg-white shadow-lg z-10 cursor-ew-resize; }
+
+    .tool-canvas-wrap { position: relative; display: inline-block; cursor: crosshair; }
+    .tool-canvas-wrap canvas { display: block; max-width: 100%; height: auto; }
+    #maskCanvas { position: absolute; top: 0; left: 0; }
+
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+    .faq-item.active .faq-answer { max-height: 500px; }
+    .faq-item.active .faq-chevron { transform: rotate(180deg); }
+    .faq-chevron { transition: transform 0.3s ease; }
+
+    .btn-primary { transition: transform 0.15s ease; }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .fade-in { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .spin-slow { animation: spin-slow 2s linear infinite; }
+
+    .pulse-badge { animation: pulse-badge 2s ease-in-out infinite; }
+    @keyframes pulse-badge { 0%, 100% { box-shadow: 0 0 0 0 rgba(46,125,50,0.3); } 50% { box-shadow: 0 0 0 8px rgba(46,125,50,0); } }
+
+    .progress-fill { transition: width 0.3s ease; }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- ===== FIXED PRIVACY BANNER ===== -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-trust text-white py-2 px-4 text-center text-sm font-medium shadow-md">
+    <div class="max-w-6xl mx-auto flex items-center justify-center gap-2">
+      <i class="fa-solid fa-lock"></i>
+      <span>Your images never leave your browser. 100% local processing.</span>
+      <a href="#privacy-education" class="underline ml-2 hover:text-green-200">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Spacer for fixed banner -->
+  <div class="h-10"></div>
+
+  <!-- ===== PAIN POINT EMPATHY ===== -->
+  <div class="bg-pain-bg border-b border-red-100 py-3 px-4 text-center">
+    <p class="text-pain-text text-sm max-w-3xl mx-auto">
+      <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+      Every day, millions of sensitive photos — IDs, contracts, private moments — get uploaded to strangers' servers just to remove a watermark. Your images could be stored, shared, or misused. There's a better way.
+    </p>
+  </div>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="py-16 md:py-24 px-4 text-center bg-gradient-to-b from-green-50/50 to-white">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+        Remove Watermarks<br>Without Uploading
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+        The only watermark remover that runs entirely in your browser. No servers. No uploads. No privacy risks.
+      </p>
+
+      <!-- 3 Core Selling Points -->
+      <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10">
+        <div class="flex items-center gap-3 text-left">
+          <div class="w-12 h-12 rounded-full bg-trust-light flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-desktop text-trust text-xl"></i>
+          </div>
+          <div>
+            <div class="font-bold text-gray-900">100% Local</div>
+            <div class="text-sm text-gray-500">Runs on your device</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 text-left">
+          <div class="w-12 h-12 rounded-full bg-trust-light flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-cloud-arrow-up text-trust text-xl" style="transform: scaleY(-1)"></i>
+          </div>
+          <div>
+            <div class="font-bold text-gray-900">Zero Upload</div>
+            <div class="text-sm text-gray-500">Photos never leave your device</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 text-left">
+          <div class="w-12 h-12 rounded-full bg-trust-light flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-gift text-trust text-xl"></i>
+          </div>
+          <div>
+            <div class="font-bold text-gray-900">Free to Use</div>
+            <div class="text-sm text-gray-500">No sign-up, no hidden fees</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <a href="#tool" class="btn-primary inline-block bg-trust hover:bg-trust-dark text-white font-semibold px-8 py-4 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all">
+        <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Start Removing Watermarks — Free
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== COMPETITOR COMPARISON TABLE ===== -->
+  <section class="py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-center mb-8">Why Choose LocalWipe?</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="p-4 font-semibold text-gray-600 border-b">Feature</th>
+              <th class="p-4 font-semibold text-trust border-b text-center">
+                <i class="fa-solid fa-shield-halved mr-1"></i> LocalWipe
+              </th>
+              <th class="p-4 font-semibold text-gray-600 border-b text-center">Dewatermark.AI</th>
+              <th class="p-4 font-semibold text-gray-600 border-b text-center">WatermarkRemover.io</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b"><td class="p-4">Processing</td><td class="p-4 text-center font-bold text-trust">Browser local</td><td class="p-4 text-center text-gray-500">Cloud server</td><td class="p-4 text-center text-gray-500">Cloud server</td></tr>
+            <tr class="border-b bg-gray-50/50"><td class="p-4">Upload required</td><td class="p-4 text-center"><span class="text-trust font-bold">No</span></td><td class="p-4 text-center text-gray-500">Yes</td><td class="p-4 text-center text-gray-500">Yes</td></tr>
+            <tr class="border-b"><td class="p-4">File size limit</td><td class="p-4 text-center font-bold text-trust">None</td><td class="p-4 text-center text-gray-500">10MB</td><td class="p-4 text-center text-gray-500">5MB</td></tr>
+            <tr class="border-b bg-gray-50/50"><td class="p-4">Sign-up needed</td><td class="p-4 text-center"><span class="text-trust font-bold">No</span></td><td class="p-4 text-center text-gray-500">No</td><td class="p-4 text-center text-gray-500">Yes</td></tr>
+            <tr class="border-b"><td class="p-4">Free daily uses</td><td class="p-4 text-center font-bold text-trust">5 images</td><td class="p-4 text-center text-gray-500">3 images</td><td class="p-4 text-center text-gray-500">1 image</td></tr>
+            <tr class="bg-gray-50/50"><td class="p-4">Price</td><td class="p-4 text-center font-bold text-trust">$0.99 one-time</td><td class="p-4 text-center text-gray-500">$10/mo+</td><td class="p-4 text-center text-gray-500">$9.99/mo+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="py-16 px-4 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-trust-light flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-upload text-trust text-2xl"></i>
+          </div>
+          <div class="font-bold text-lg mb-2">1. Upload Locally</div>
+          <p class="text-sm text-gray-500">Your image loads into your browser's memory. Zero bytes sent anywhere.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-trust-light flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-paintbrush text-trust text-2xl"></i>
+          </div>
+          <div class="font-bold text-lg mb-2">2. Paint the Watermark</div>
+          <p class="text-sm text-gray-500">Draw over the watermark area. All painting happens locally on canvas.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-trust-light flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-wand-magic-sparkles text-trust text-2xl"></i>
+          </div>
+          <div class="font-bold text-lg mb-2">3. Smart Removal</div>
+          <p class="text-sm text-gray-500">The algorithm fills the area using surrounding pixels. Runs entirely on your device.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-trust-light flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-download text-trust text-2xl"></i>
+          </div>
+          <div class="font-bold text-lg mb-2">4. Download Safely</div>
+          <p class="text-sm text-gray-500">Save the result to your device. Nothing was ever sent to any server.</p>
+        </div>
+      </div>
+      <p class="text-center text-trust font-semibold mt-10 text-lg">
+        Unlike every other tool, we never see your images. Not even a single pixel.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== TOOL SECTION ===== -->
+  <section id="tool" class="py-16 px-4 scroll-mt-12">
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Step indicator -->
+      <div class="flex items-center justify-center gap-2 mb-8 text-sm text-gray-400">
+        <span id="step1-indicator" class="step-active font-semibold text-trust">1. Upload</span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <span id="step2-indicator">2. Paint</span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <span id="step3-indicator">3. Remove</span>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <span id="step4-indicator">4. Download</span>
+      </div>
+
+      <!-- Upload Area -->
+      <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-trust hover:bg-green-50/30 transition-all cursor-pointer mb-8">
+        <i class="fa-solid fa-cloud-arrow-up text-5xl text-gray-300 mb-4"></i>
+        <p class="text-lg font-semibold text-gray-600 mb-2">Drop your image here or click to upload</p>
+        <p class="text-sm text-gray-400">Supports JPG, PNG, WebP — No file size limit</p>
+        <p class="text-xs text-trust mt-3"><i class="fa-solid fa-lock mr-1"></i> Image loads locally. Nothing uploaded to any server.</p>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" class="hidden">
+      </div>
+
+      <!-- Workspace (hidden until image loaded) -->
+      <div id="workspace" class="hidden fade-in">
+
+        <!-- Status bar -->
+        <div id="statusBar" class="bg-trust-light border border-green-200 rounded-lg p-3 mb-4 flex items-center gap-2 text-sm text-trust">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Image loaded locally. Nothing was uploaded to any server.</span>
+          <span id="imageInfo" class="ml-auto text-gray-500 text-xs"></span>
+        </div>
+
+        <!-- Brush Controls -->
+        <div class="bg-white border border-gray-200 rounded-xl p-4 mb-4 shadow-sm">
+          <div class="flex flex-wrap items-center gap-4">
+            <div class="flex items-center gap-2">
+              <label class="text-sm font-medium text-gray-600">Brush:</label>
+              <input type="range" id="brushSize" min="5" max="150" value="30" class="w-24 accent-trust">
+              <span id="brushSizeLabel" class="text-sm text-gray-500 w-8">30</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button id="btnDraw" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-trust text-white" title="Draw mask">
+                <i class="fa-solid fa-paintbrush"></i> Draw
+              </button>
+              <button id="btnErase" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200" title="Erase mask">
+                <i class="fa-solid fa-eraser"></i> Erase
+              </button>
+            </div>
+            <div class="flex items-center gap-1">
+              <button id="btnUndo" class="px-3 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200" title="Undo (Ctrl+Z)">
+                <i class="fa-solid fa-rotate-left"></i>
+              </button>
+              <button id="btnRedo" class="px-3 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200" title="Redo (Ctrl+Y)">
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+              <button id="btnClear" class="px-3 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200" title="Clear all">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+            <button id="btnNewImage" class="px-3 py-1.5 rounded-lg text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 ml-auto" title="Upload new image">
+              <i class="fa-solid fa-image mr-1"></i> New Image
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="flex flex-col lg:flex-row gap-4 mb-4">
+          <div class="flex-1">
+            <div class="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Paint over the watermark</div>
+            <div class="tool-canvas-wrap border border-gray-200 rounded-xl overflow-hidden bg-gray-100">
+              <canvas id="imageCanvas"></canvas>
+              <canvas id="maskCanvas"></canvas>
+            </div>
+          </div>
+          <div id="resultPanel" class="flex-1 hidden">
+            <div class="text-xs text-gray-400 mb-1 uppercase tracking-wide font-medium">Result</div>
+            <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-100">
+              <canvas id="resultCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-3 mb-4">
+          <button id="btnProcess" class="btn-primary bg-trust hover:bg-trust-dark text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Remove Watermark
+          </button>
+          <button id="btnDownload" class="btn-primary bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hidden flex items-center gap-2">
+            <i class="fa-solid fa-download"></i> Download PNG
+          </button>
+          <button id="btnDownloadJpg" class="btn-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hidden flex items-center gap-2">
+            <i class="fa-solid fa-download"></i> Download JPG
+          </button>
+        </div>
+
+        <!-- Progress -->
+        <div id="progressArea" class="hidden mb-4">
+          <div class="bg-gray-100 rounded-full h-3 overflow-hidden">
+            <div id="progressBar" class="bg-trust h-full progress-fill rounded-full" style="width: 0%"></div>
+          </div>
+          <p id="progressText" class="text-sm text-gray-500 mt-2 text-center">
+            <i class="fa-solid fa-shield-halved spin-slow mr-1"></i>
+            Processing locally on your device...
+          </p>
+        </div>
+
+        <!-- Usage Counter -->
+        <div id="usageInfo" class="text-xs text-gray-400 text-center">
+          <i class="fa-solid fa-image mr-1"></i>
+          <span id="usageText">Free uses today: 5 / 5</span>
+        </div>
+      </div>
+
+      <!-- AdSense Placeholder -->
+      <!-- <div class="adsense-placeholder mt-8 text-center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></div> -->
+    </div>
+  </section>
+
+  <!-- ===== PRIVACY RISK EDUCATION ===== -->
+  <section id="privacy-education" class="py-16 px-4 bg-gray-900 text-white scroll-mt-12">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">The Hidden Risk You Never Thought About</h2>
+      <p class="text-gray-300 text-lg leading-relaxed mb-8">
+        When you upload a photo to Dewatermark.AI or any cloud-based watermark remover, you lose control. That image — which might contain your home address on a bill, your ID number on a document, or confidential information in a contract — is now stored on someone else's server. Many tools claim they delete images after processing, but can you verify that?
+      </p>
+      <div class="bg-trust/20 border border-trust/40 rounded-xl p-6 inline-block">
+        <p class="text-xl font-semibold text-green-300 italic">
+          "Trust nothing. We simply don't get your data."
+        </p>
+      </div>
+      <p class="text-gray-400 mt-6 text-sm">
+        With LocalWipe, there's nothing to delete — because we never had your image in the first place.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== SEO CONTENT ===== -->
+  <section class="py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-6 text-center">Why Privacy Matters When Removing Watermarks</h2>
+      <div class="prose prose-gray max-w-none space-y-4 text-gray-600 leading-relaxed">
+        <p>
+          Most watermark removal tools require you to upload your photos to their cloud servers. This means your images — whether they contain personal memories, business documents, or creative work — are transferred over the internet and temporarily stored on servers you don't control. Even with encryption, your data is exposed to potential breaches, unauthorized access, or misuse.
+        </p>
+        <p>
+          A local watermark remover eliminates this risk entirely. By processing images directly in your browser using JavaScript and Canvas API, your photos never leave your device. There's no upload, no server storage, and no third party involved. What happens on your computer stays on your computer.
+        </p>
+        <p>
+          This approach is especially important for sensitive images: ID cards, legal contracts, medical records, or private photos. With LocalWipe, you can remove watermarks from any image with complete confidence that your data remains private — because it physically cannot leave your browser.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="py-16 px-4 bg-gray-50">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>Do you really never upload my images?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">Yes. This is our entire reason for existing. All processing happens 100% locally in your browser. Your images never leave your computer. We never see, store, or share any of your photos. You can verify this: open your browser's Network tab (F12) while using our tool — you'll see zero image upload requests.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>Why do all other tools require uploading?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">Most tools run their AI models on expensive cloud servers, which means they must upload your images to process them. This is cheaper for them, but puts your privacy at risk. We took the harder path: our algorithms run entirely on your device.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>What kind of watermarks can this remove?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">Our tool handles most common watermarks: text overlays, logos, timestamps, and icons — especially on uniform or simple backgrounds. For complex watermarks over busy backgrounds, results may vary. You can adjust the brush size and re-process for better results.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>Is this really free? What's the catch?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">The basic version is completely free with 5 images per day. No sign-up, no hidden fees. We offer a one-time $0.99 upgrade for unlimited daily uses. That's it — no subscriptions, no data selling. We keep the tool free because we believe privacy should be accessible to everyone.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>What about sensitive images like IDs or contracts?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">This is exactly what our tool was designed for. You can safely process sensitive documents, ID cards, private photos, and confidential contracts. Since everything runs locally, there's zero risk of your data being leaked, stored, or misused by third-party servers.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>Do you collect any data about me?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">No. We do not collect any personal data. We do not set tracking cookies. We never receive any of your image data. The only analytics we use is basic page view counting (Google Analytics), which tells us how many people visit — nothing about what you do here.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl border border-gray-200 overflow-hidden">
+          <button class="w-full p-5 text-left font-semibold flex items-center justify-between gap-4 faq-toggle">
+            <span>Can I use this offline?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron text-gray-400 text-sm flex-shrink-0"></i>
+          </button>
+          <div class="faq-answer px-5">
+            <p class="text-gray-600 pb-5">Yes! Once the page has loaded in your browser, you can disconnect from the internet and still use the tool. The entire application runs locally after the initial page load.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== UPGRADE MODAL ===== -->
+  <div id="upgradeModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-8 text-center shadow-2xl relative">
+      <button id="closeModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+      <div class="w-16 h-16 rounded-full bg-trust-light flex items-center justify-center mx-auto mb-4">
+        <i class="fa-solid fa-crown text-trust text-2xl"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Daily Limit Reached</h3>
+      <p class="text-gray-500 mb-4 text-sm">You've used all 5 free images today. Upgrade for unlimited access — one-time payment, no subscription.</p>
+      <a href="https://ko-fi.com/freegamesmaker" target="_blank" rel="noopener noreferrer" id="upgradeBtn" class="btn-primary inline-block bg-trust hover:bg-trust-dark text-white font-semibold px-8 py-3 rounded-xl shadow-lg mb-3 w-full">
+        Unlock Unlimited — $0.99
+      </a>
+      <p class="text-xs text-gray-400">One-time payment. No subscription. No hidden fees.</p>
+      <p class="text-xs text-gray-400 mt-1">We don't make money selling your data. This optional upgrade keeps the tool free for everyone.</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="py-12 px-4 bg-gray-50 border-t border-gray-200">
+    <div class="max-w-4xl mx-auto">
+
+      <!-- Support -->
+      <div class="text-center mb-10">
+        <p class="text-gray-600 mb-4">Enjoying LocalWipe? Help keep it free and privacy-focused.</p>
+        <a href="https://ko-fi.com/freegamesmaker" target="_blank" rel="noopener noreferrer" class="btn-primary inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-xl shadow">
+          <i class="fa-solid fa-mug-hot mr-2"></i> Support on Ko-fi
+        </a>
+        <p class="text-xs text-gray-400 mt-2">Your support helps us keep this tool free for everyone.</p>
+      </div>
+
+      <!-- Internal Links -->
+      <div class="text-center mb-8">
+        <h3 class="font-semibold text-gray-700 mb-3">More Privacy-First Tools</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="https://aifiguremaker.com" target="_blank" rel="noopener noreferrer" class="text-trust hover:underline">AI Action Figure Generator — 100% local, no uploads</a></li>
+          <li><a href="https://banweitest.com" target="_blank" rel="noopener noreferrer" class="text-trust hover:underline">Banwei Test — How corporate are you?</a></li>
+          <li><a href="https://fourseasonskeys.com" target="_blank" rel="noopener noreferrer" class="text-trust hover:underline">Four Seasons Keys — Privacy-first key generator</a></li>
+        </ul>
+      </div>
+
+      <!-- Privacy Policy -->
+      <div class="text-center mb-6">
+        <a href="#" class="text-sm text-gray-500 hover:text-trust underline">Privacy Policy</a>
+        <span class="text-gray-300 mx-2">|</span>
+        <a href="#" class="text-sm text-gray-500 hover:text-trust underline">Terms of Service</a>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="text-xs text-gray-400 text-center leading-relaxed">
+        LocalWipe is an independent project and is not affiliated with Dewatermark.AI, WatermarkRemover.io, or any other third-party tools mentioned for comparison purposes. All trademarks belong to their respective owners. Please ensure you have the right to remove watermarks from images before using this tool.
+      </p>
+
+      <!-- AdSense Placeholder -->
+      <!-- <div class="adsense-placeholder mt-8 text-center" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></div> -->
+
+      <p class="text-xs text-gray-300 text-center mt-6">&copy; 2026 LocalWipe. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+  (function() {
+    'use strict';
+
+    // ===== State =====
+    const state = {
+      image: null,           // loaded Image object
+      imageWidth: 0,
+      imageHeight: 0,
+      drawing: false,
+      mode: 'draw',          // 'draw' or 'erase'
+      brushSize: 30,
+      undoStack: [],
+      redoStack: [],
+      hasResult: false,
+    };
+
+    // ===== DOM =====
+    const $ = id => document.getElementById(id);
+    const uploadArea = $('uploadArea');
+    const fileInput = $('fileInput');
+    const workspace = $('workspace');
+    const imageCanvas = $('imageCanvas');
+    const maskCanvas = $('maskCanvas');
+    const resultCanvas = $('resultCanvas');
+    const resultPanel = $('resultPanel');
+    const imageCtx = imageCanvas.getContext('2d');
+    const maskCtx = maskCanvas.getContext('2d');
+    const resultCtx = resultCanvas.getContext('2d');
+
+    // ===== Daily Usage (localStorage) =====
+    const USAGE_KEY = 'localwipe_usage';
+    const DAILY_LIMIT = 5;
+
+    function getToday() { return new Date().toISOString().split('T')[0]; }
+
+    function getUsage() {
+      try {
+        const data = JSON.parse(localStorage.getItem(USAGE_KEY));
+        if (data && data.date === getToday()) return data.count;
+      } catch(e) {}
+      return 0;
+    }
+
+    function incrementUsage() {
+      const count = getUsage() + 1;
+      localStorage.setItem(USAGE_KEY, JSON.stringify({ date: getToday(), count }));
+      updateUsageDisplay();
+    }
+
+    function updateUsageDisplay() {
+      const used = getUsage();
+      const remaining = Math.max(0, DAILY_LIMIT - used);
+      $('usageText').textContent = `Free uses today: ${remaining} / ${DAILY_LIMIT}`;
+      if (remaining === 0) {
+        $('usageInfo').classList.add('text-red-400');
+      }
+    }
+
+    updateUsageDisplay();
+
+    // ===== File Upload =====
+    uploadArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', e => { if (e.target.files[0]) loadImage(e.target.files[0]); });
+
+    // Drag & drop
+    uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('border-trust', 'bg-green-50/50'); });
+    uploadArea.addEventListener('dragleave', () => { uploadArea.classList.remove('border-trust', 'bg-green-50/50'); });
+    uploadArea.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadArea.classList.remove('border-trust', 'bg-green-50/50');
+      if (e.dataTransfer.files[0]) loadImage(e.dataTransfer.files[0]);
+    });
+
+    function loadImage(file) {
+      if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
+        alert('Please upload a JPG, PNG, or WebP image.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          state.image = img;
+          state.imageWidth = img.width;
+          state.imageHeight = img.height;
+
+          // Set canvas sizes
+          imageCanvas.width = img.width;
+          imageCanvas.height = img.height;
+          maskCanvas.width = img.width;
+          maskCanvas.height = img.height;
+
+          // Draw image
+          imageCtx.drawImage(img, 0, 0);
+
+          // Clear mask
+          maskCtx.clearRect(0, 0, img.width, img.height);
+          state.undoStack = [];
+          state.redoStack = [];
+          state.hasResult = false;
+
+          // Update UI
+          uploadArea.classList.add('hidden');
+          workspace.classList.remove('hidden');
+          resultPanel.classList.add('hidden');
+          $('btnDownload').classList.add('hidden');
+          $('btnDownloadJpg').classList.add('hidden');
+          $('imageInfo').textContent = `${img.width} x ${img.height} px — ${(file.size / 1024).toFixed(0)} KB`;
+
+          updateStepIndicator(1);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ===== Brush / Paint =====
+    function getCanvasCoords(e) {
+      const rect = maskCanvas.getBoundingClientRect();
+      const scaleX = state.imageWidth / rect.width;
+      const scaleY = state.imageHeight / rect.height;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY
+      };
+    }
+
+    function startDraw(e) {
+      e.preventDefault();
+      state.drawing = true;
+      saveMaskState();
+      draw(e);
+    }
+
+    function draw(e) {
+      if (!state.drawing) return;
+      e.preventDefault();
+      const { x, y } = getCanvasCoords(e);
+      maskCtx.beginPath();
+      maskCtx.arc(x, y, state.brushSize / 2, 0, Math.PI * 2);
+      if (state.mode === 'draw') {
+        maskCtx.fillStyle = 'rgba(255, 0, 0, 0.35)';
+        maskCtx.fill();
+      } else {
+        maskCtx.save();
+        maskCtx.globalCompositeOperation = 'destination-out';
+        maskCtx.fillStyle = 'rgba(0,0,0,1)';
+        maskCtx.fill();
+        maskCtx.restore();
+      }
+    }
+
+    function stopDraw() {
+      if (state.drawing) {
+        state.drawing = false;
+      }
+    }
+
+    maskCanvas.addEventListener('mousedown', startDraw);
+    maskCanvas.addEventListener('mousemove', draw);
+    maskCanvas.addEventListener('mouseup', stopDraw);
+    maskCanvas.addEventListener('mouseleave', stopDraw);
+    maskCanvas.addEventListener('touchstart', startDraw, { passive: false });
+    maskCanvas.addEventListener('touchmove', draw, { passive: false });
+    maskCanvas.addEventListener('touchend', stopDraw);
+
+    // Brush cursor style
+    maskCanvas.style.cursor = 'crosshair';
+
+    // ===== Undo / Redo =====
+    function saveMaskState() {
+      const data = maskCtx.getImageData(0, 0, state.imageWidth, state.imageHeight);
+      state.undoStack.push(data);
+      if (state.undoStack.length > 30) state.undoStack.shift();
+      state.redoStack = [];
+    }
+
+    function undo() {
+      if (state.undoStack.length === 0) return;
+      state.redoStack.push(maskCtx.getImageData(0, 0, state.imageWidth, state.imageHeight));
+      maskCtx.putImageData(state.undoStack.pop(), 0, 0);
+    }
+
+    function redo() {
+      if (state.redoStack.length === 0) return;
+      state.undoStack.push(maskCtx.getImageData(0, 0, state.imageWidth, state.imageHeight));
+      maskCtx.putImageData(state.redoStack.pop(), 0, 0);
+    }
+
+    function clearMask() {
+      saveMaskState();
+      maskCtx.clearRect(0, 0, state.imageWidth, state.imageHeight);
+    }
+
+    // ===== Controls =====
+    $('brushSize').addEventListener('input', e => {
+      state.brushSize = parseInt(e.target.value);
+      $('brushSizeLabel').textContent = state.brushSize;
+    });
+
+    $('btnDraw').addEventListener('click', () => {
+      state.mode = 'draw';
+      $('btnDraw').className = 'px-3 py-1.5 rounded-lg text-sm font-medium bg-trust text-white';
+      $('btnErase').className = 'px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200';
+    });
+
+    $('btnErase').addEventListener('click', () => {
+      state.mode = 'erase';
+      $('btnErase').className = 'px-3 py-1.5 rounded-lg text-sm font-medium bg-trust text-white';
+      $('btnDraw').className = 'px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200';
+    });
+
+    $('btnUndo').addEventListener('click', undo);
+    $('btnRedo').addEventListener('click', redo);
+    $('btnClear').addEventListener('click', clearMask);
+
+    $('btnNewImage').addEventListener('click', () => {
+      workspace.classList.add('hidden');
+      uploadArea.classList.remove('hidden');
+      fileInput.value = '';
+      state.image = null;
+      state.hasResult = false;
+      updateStepIndicator(0);
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undo(); }
+      if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redo(); }
+      if (e.key === '[') { state.brushSize = Math.max(5, state.brushSize - 5); $('brushSize').value = state.brushSize; $('brushSizeLabel').textContent = state.brushSize; }
+      if (e.key === ']') { state.brushSize = Math.min(150, state.brushSize + 5); $('brushSize').value = state.brushSize; $('brushSizeLabel').textContent = state.brushSize; }
+    });
+
+    // ===== Step Indicator =====
+    function updateStepIndicator(step) {
+      for (let i = 1; i <= 4; i++) {
+        const el = $(`step${i}-indicator`);
+        if (i <= step) {
+          el.classList.add('font-semibold', 'text-trust');
+          el.classList.remove('text-gray-400');
+        } else {
+          el.classList.remove('font-semibold', 'text-trust');
+          el.classList.add('text-gray-400');
+        }
+      }
+    }
+
+    // ===== Inpainting Algorithm =====
+    function processImage() {
+      if (!state.image) return;
+
+      // Check daily limit
+      if (getUsage() >= DAILY_LIMIT) {
+        showUpgradeModal();
+        return;
+      }
+
+      // Get mask data
+      const maskData = maskCtx.getImageData(0, 0, state.imageWidth, state.imageHeight);
+      const maskPixels = maskData.data;
+
+      // Check if mask has any painted area
+      let hasMask = false;
+      for (let i = 3; i < maskPixels.length; i += 4) {
+        if (maskPixels[i] > 0) { hasMask = true; break; }
+      }
+      if (!hasMask) {
+        alert('Please paint over the watermark area first.');
+        return;
+      }
+
+      // Show progress
+      $('progressArea').classList.remove('hidden');
+      $('btnProcess').disabled = true;
+      $('btnProcess').classList.add('opacity-50');
+      updateStepIndicator(2);
+
+      // Use setTimeout to allow UI update
+      setTimeout(() => {
+        const startTime = Date.now();
+
+        // Get image data
+        const imgData = imageCtx.getImageData(0, 0, state.imageWidth, state.imageHeight);
+        const pixels = imgData.data;
+        const w = state.imageWidth;
+        const h = state.imageHeight;
+
+        // Create binary mask (1 = needs inpainting)
+        const mask = new Uint8Array(w * h);
+        for (let i = 0; i < w * h; i++) {
+          mask[i] = maskPixels[i * 4 + 3] > 0 ? 1 : 0;
+        }
+
+        // Find bounding box of mask for optimization
+        let minX = w, minY = h, maxX = 0, maxY = 0;
+        for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (mask[y * w + x]) {
+              if (x < minX) minX = x;
+              if (x > maxX) maxX = x;
+              if (y < minY) minY = y;
+              if (y > maxY) maxY = y;
+            }
+          }
+        }
+
+        // Expand bounding box
+        const margin = 20;
+        minX = Math.max(0, minX - margin);
+        minY = Math.max(0, minY - margin);
+        maxX = Math.min(w - 1, maxX + margin);
+        maxY = Math.min(h - 1, maxY + margin);
+
+        // Create working copy and fill tracking array
+        const result = new Uint8ClampedArray(pixels);
+        const filled = new Uint8Array(w * h); // 0 = not filled, 1 = filled
+
+        // Calculate total iterations based on mask size
+        const maxDim = Math.max(maxX - minX, maxY - minY);
+        const iterations = Math.min(500, Math.max(100, maxDim));
+
+        // Iterative diffusion inpainting
+        for (let iter = 0; iter < iterations; iter++) {
+          let changed = false;
+
+          for (let y = minY; y <= maxY; y++) {
+            for (let x = minX; x <= maxX; x++) {
+              const idx = y * w + x;
+              if (!mask[idx]) continue;
+
+              let sumR = 0, sumG = 0, sumB = 0, count = 0;
+
+              // Check 8 neighbors
+              for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                  if (dx === 0 && dy === 0) continue;
+                  const nx = x + dx;
+                  const ny = y + dy;
+                  if (nx < 0 || nx >= w || ny < 0 || ny >= h) continue;
+
+                  const nIdx = ny * w + nx;
+                  // Use neighbor if it's unmasked OR already filled
+                  if (!mask[nIdx] || filled[nIdx]) {
+                    sumR += result[nIdx * 4];
+                    sumG += result[nIdx * 4 + 1];
+                    sumB += result[nIdx * 4 + 2];
+                    count++;
+                  }
+                }
+              }
+
+              if (count > 0) {
+                const newR = Math.round(sumR / count);
+                const newG = Math.round(sumG / count);
+                const newB = Math.round(sumB / count);
+
+                result[idx * 4] = newR;
+                result[idx * 4 + 1] = newG;
+                result[idx * 4 + 2] = newB;
+                filled[idx] = 1;
+                changed = true;
+              }
+            }
+          }
+
+          // Update progress
+          const progress = Math.round(((iter + 1) / iterations) * 80);
+          $('progressBar').style.width = progress + '%';
+
+          // Early exit if no changes
+          if (!changed && iter > 10) break;
+        }
+
+        // Post-processing: slight blur on filled region for smoothing
+        $('progressBar').style.width = '90%';
+        $('progressText').innerHTML = '<i class="fa-solid fa-shield-halved spin-slow mr-1"></i> Smoothing result...';
+
+        // Apply box blur pass on masked pixels
+        const blurred = new Uint8ClampedArray(result);
+        for (let y = minY; y <= maxY; y++) {
+          for (let x = minX; x <= maxX; x++) {
+            const idx = y * w + x;
+            if (!mask[idx]) continue;
+
+            let sumR = 0, sumG = 0, sumB = 0, count = 0;
+            for (let dy = -1; dy <= 1; dy++) {
+              for (let dx = -1; dx <= 1; dx++) {
+                const nx = x + dx;
+                const ny = y + dy;
+                if (nx < 0 || nx >= w || ny < 0 || ny >= h) continue;
+                const nIdx = ny * w + nx;
+                sumR += result[nIdx * 4];
+                sumG += result[nIdx * 4 + 1];
+                sumB += result[nIdx * 4 + 2];
+                count++;
+              }
+            }
+            blurred[idx * 4] = Math.round(sumR / count);
+            blurred[idx * 4 + 1] = Math.round(sumG / count);
+            blurred[idx * 4 + 2] = Math.round(sumB / count);
+          }
+        }
+
+        // Write result
+        const resultImgData = new ImageData(blurred, w, h);
+        resultCanvas.width = w;
+        resultCanvas.height = h;
+        resultCtx.putImageData(resultImgData, 0, 0);
+
+        // Show result
+        $('progressBar').style.width = '100%';
+        setTimeout(() => {
+          $('progressArea').classList.add('hidden');
+          $('progressBar').style.width = '0%';
+          resultPanel.classList.remove('hidden');
+          resultPanel.classList.add('fade-in');
+          $('btnDownload').classList.remove('hidden');
+          $('btnDownloadJpg').classList.remove('hidden');
+          state.hasResult = true;
+          $('btnProcess').disabled = false;
+          $('btnProcess').classList.remove('opacity-50');
+          updateStepIndicator(3);
+          incrementUsage();
+
+          const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+          $('statusBar').innerHTML = `<i class="fa-solid fa-check-circle text-trust"></i> <span>Done in ${elapsed}s — processed locally on your device.</span>`;
+        }, 300);
+      }, 50);
+    }
+
+    $('btnProcess').addEventListener('click', processImage);
+
+    // ===== Download =====
+    function downloadResult(format) {
+      if (!state.hasResult) return;
+      updateStepIndicator(4);
+
+      const mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
+      const ext = format === 'jpg' ? 'jpg' : 'png';
+      const quality = format === 'jpg' ? 0.92 : undefined;
+
+      resultCanvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `localwipe-result.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        $('statusBar').innerHTML = '<i class="fa-solid fa-check-circle text-trust"></i> <span>Downloaded locally. No data was sent to any server.</span>';
+      }, mimeType, quality);
+    }
+
+    $('btnDownload').addEventListener('click', () => downloadResult('png'));
+    $('btnDownloadJpg').addEventListener('click', () => downloadResult('jpg'));
+
+    // ===== Upgrade Modal =====
+    function showUpgradeModal() {
+      $('upgradeModal').classList.remove('hidden');
+      $('upgradeModal').classList.add('flex');
+    }
+
+    $('closeModal').addEventListener('click', () => {
+      $('upgradeModal').classList.add('hidden');
+      $('upgradeModal').classList.remove('flex');
+    });
+
+    $('upgradeModal').addEventListener('click', e => {
+      if (e.target === $('upgradeModal')) {
+        $('upgradeModal').classList.add('hidden');
+        $('upgradeModal').classList.remove('flex');
+      }
+    });
+
+    // ===== FAQ Toggle =====
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        item.classList.toggle('active');
+      });
+    });
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+  })();
+  </script>
+
+</body>
+</html>
